@@ -149,7 +149,21 @@ class TaskProvider extends ChangeNotifier {
     ),
   ]; //temp data for designing
 
-  List<Task> get tasks => _tasks;
+  String _searchQuery = "";
+
+  List<Task> get tasks {
+    if (_searchQuery.isEmpty) return _tasks;
+
+    return _tasks
+        .where((task) =>
+        task.title.toLowerCase().contains(_searchQuery.toLowerCase()))
+        .toList();
+  }
+
+  void setSearchQuery(String value) {
+    _searchQuery = value;
+    notifyListeners();
+  }
 
   void addTask(Task task) {
     _tasks.add(task);
