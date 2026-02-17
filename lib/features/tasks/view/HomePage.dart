@@ -4,6 +4,7 @@ import 'package:to_do_app/Settings/App_Colors.dart';
 
 import '../viewmodel/prov.dart';
 import 'Customized_Widgets/BottomSheet_AddNewToDo.dart';
+import 'Customized_Widgets/Floating_Action_BTN.dart';
 import 'Customized_Widgets/Task_Card.dart';
 
 class Homepage extends StatefulWidget {
@@ -147,30 +148,7 @@ class _HomePageState extends State<Homepage> {
     return Scaffold(
       backgroundColor: AppColors.bodyColor,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.floatingBtnColor,
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            backgroundColor: AppColors.bottomSheetBacgroundColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-            ),
-            builder: (context) {
-              return BottomsheetAddnewtodo();
-            },
-          );
-        },
-        child: Text(
-          "+",
-          style: TextStyle(
-            color: AppColors.fontColor,
-            fontSize: 36,
-            fontWeight: FontWeight.w300,
-          ),
-        ),
-      ),
+      floatingActionButton: FloatingActionBtn(),
       appBar: AppBar(
         scrolledUnderElevation: 0,
         backgroundColor: AppColors.appBarColor,
