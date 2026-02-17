@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:to_do_app/Settings/App_Colors.dart';
 
 import '../viewmodel/prov.dart';
-import 'Customized_Widgets/BottomSheet_AddNewToDo.dart';
 import 'Customized_Widgets/Floating_Action_BTN.dart';
 import 'Customized_Widgets/Task_Card.dart';
 
