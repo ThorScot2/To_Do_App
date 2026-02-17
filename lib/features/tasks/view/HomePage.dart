@@ -15,19 +15,12 @@ class Homepage extends StatefulWidget {
 
 class _HomePageState extends State<Homepage> {
   bool sortDescending = true; // true = High to Low ---- false = Low to High
-  bool hideCompleted = false;
   TextEditingController controller = TextEditingController();
 
   Consumer<TaskProvider> retriveFinishedTasks() {
     return Consumer<TaskProvider>(
       builder: (context, taskProvider, child) {
-        final completedTasks =
-            taskProvider.tasks.where((t) => t.isDone && !hideCompleted).toList()
-              ..sort(
-                (a, b) => sortDescending
-                    ? b.priority.compareTo(a.priority) // High to Low
-                    : a.priority.compareTo(b.priority), // Low to High
-              );
+        final completedTasks = taskProvider.completedTasks;
 
         if (completedTasks.isEmpty) return SizedBox(); //check if empty
 
@@ -72,12 +65,7 @@ class _HomePageState extends State<Homepage> {
   Consumer<TaskProvider> retriveUnFinishedTasks() {
     return Consumer<TaskProvider>(
       builder: (context, taskProvider, child) {
-        final pendingTasks = taskProvider.tasks.where((t) => !t.isDone).toList()
-          ..sort(
-            (a, b) => sortDescending
-                ? b.priority.compareTo(a.priority) // High to Low
-                : a.priority.compareTo(b.priority), // Low to High
-          );
+        final pendingTasks = taskProvider.pendingTasks;
 
         if (pendingTasks.isEmpty) {
           //check if empty
@@ -201,9 +189,7 @@ class _HomePageState extends State<Homepage> {
               ),
               PopupMenuItem(
                 onTap: () {
-                  setState(() {
-                    hideCompleted = !hideCompleted;
-                  });
+                  context.read<TaskProvider>().toggleHideCompleted();
                 },
                 child: Text(
                   "Hide completed",
@@ -273,7 +259,7 @@ class _HomePageState extends State<Homepage> {
                       Consumer<TaskProvider>(
                         builder: (context, taskProvider, child) {
                           return Text(
-                            "${taskProvider.tasks.length} to-dos",
+                            "${taskProvider.pendingTasks.length} to-dos",
                             style: TextStyle(color: Colors.grey),
                           );
                         },
@@ -289,9 +275,10 @@ class _HomePageState extends State<Homepage> {
                       IconButton(
                         onPressed: () {
                           //tasks sorting
-                          setState(() {
-                            sortDescending = !sortDescending;
-                          });
+                          Provider.of<TaskProvider>(
+                            context,
+                            listen: false,
+                          ).toggleSort();
                         },
                         icon: Icon(
                           Icons.sort_by_alpha,
@@ -310,6 +297,7 @@ class _HomePageState extends State<Homepage> {
 
               //finished
               retriveFinishedTasks(),
+
               SizedBox(height: 20),
             ],
           ),
