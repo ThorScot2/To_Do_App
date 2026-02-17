@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../model/task_model.dart';
 
-
 class TaskProvider extends ChangeNotifier {
   final List<Task> _tasks = [
     Task(
@@ -39,101 +38,116 @@ class TaskProvider extends ChangeNotifier {
       priority: 2,
       deadline: DateTime.now().add(Duration(hours: 1)),
       isDone: true,
-    ),Task(
+    ),
+    Task(
       title: "Workout",
       priority: 2,
       deadline: DateTime.now().add(Duration(hours: 1)),
       isDone: true,
-    ),Task(
+    ),
+    Task(
       title: "Workout",
       priority: 2,
       deadline: DateTime.now().add(Duration(hours: 1)),
       isDone: true,
-    ),Task(
+    ),
+    Task(
       title: "Workout",
       priority: 2,
       deadline: DateTime.now().add(Duration(hours: 1)),
       isDone: true,
-    ),Task(
+    ),
+    Task(
       title: "Workout",
       priority: 2,
       deadline: DateTime.now().add(Duration(hours: 1)),
       isDone: true,
-    ),Task(
+    ),
+    Task(
       title: "Workout",
       priority: 2,
       deadline: DateTime.now().add(Duration(hours: 1)),
       isDone: true,
-    ),Task(
+    ),
+    Task(
       title: "Workout",
       priority: 2,
       deadline: DateTime.now().add(Duration(hours: 1)),
       isDone: true,
-    ),Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),Task(
+    ),
+    Task(
       title: "Read book",
       priority: 1,
       deadline: DateTime.now().add(Duration(days: 2)),
       isDone: false,
     ),
-
-
-  ];//temp data for designing
-
+    Task(
+      title: "Read book",
+      priority: 1,
+      deadline: DateTime.now().add(Duration(days: 2)),
+      isDone: false,
+    ),
+    Task(
+      title: "Read book",
+      priority: 1,
+      deadline: DateTime.now().add(Duration(days: 2)),
+      isDone: false,
+    ),
+    Task(
+      title: "Read book",
+      priority: 1,
+      deadline: DateTime.now().add(Duration(days: 2)),
+      isDone: false,
+    ),
+    Task(
+      title: "Read book",
+      priority: 1,
+      deadline: DateTime.now().add(Duration(days: 2)),
+      isDone: false,
+    ),
+    Task(
+      title: "Read book",
+      priority: 1,
+      deadline: DateTime.now().add(Duration(days: 2)),
+      isDone: false,
+    ),
+    Task(
+      title: "Read book",
+      priority: 1,
+      deadline: DateTime.now().add(Duration(days: 2)),
+      isDone: false,
+    ),
+    Task(
+      title: "Read book",
+      priority: 1,
+      deadline: DateTime.now().add(Duration(days: 2)),
+      isDone: false,
+    ),
+    Task(
+      title: "Read book",
+      priority: 1,
+      deadline: DateTime.now().add(Duration(days: 2)),
+      isDone: false,
+    ),
+    Task(
+      title: "Read book",
+      priority: 1,
+      deadline: DateTime.now().add(Duration(days: 2)),
+      isDone: false,
+    ),
+    Task(
+      title: "Read book",
+      priority: 1,
+      deadline: DateTime.now().add(Duration(days: 2)),
+      isDone: false,
+    ),
+    Task(
+      title: "Read book",
+      priority: 1,
+      deadline: DateTime.now().add(Duration(days: 2)),
+      isDone: false,
+    ),
+  ]; //temp data for designing
 
   List<Task> get tasks => _tasks;
 

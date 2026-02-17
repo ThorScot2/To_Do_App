@@ -8,16 +8,23 @@ class TaskCard extends StatefulWidget {
   final bool isDone;
   final VoidCallback? onToggleDone;
 
-  const TaskCard({super.key, required this.title, required this.deadline, required this.priority, required this.isDone, this.onToggleDone,});
+  const TaskCard({
+    super.key,
+    required this.title,
+    required this.deadline,
+    required this.priority,
+    required this.isDone,
+    this.onToggleDone,
+  });
 
   @override
   State<TaskCard> createState() => _TaskCardState();
 }
 
 class _TaskCardState extends State<TaskCard> {
-
-  String getPriorityName(int priority) {//set priority name for show
-    switch(priority) {
+  String getPriorityName(int priority) {
+    //set priority name for show
+    switch (priority) {
       case 3:
         return "High";
       case 2:
@@ -39,14 +46,20 @@ class _TaskCardState extends State<TaskCard> {
         children: [
           Row(
             children: [
-              IconButton(//done button
+              IconButton(
+                //done button
                 onPressed: widget.onToggleDone,
                 icon: Icon(
                   widget.isDone ? Icons.check_circle : Icons.circle_outlined,
-                  color: widget.isDone ? AppColors.checkedTaskColor : Colors.grey,
+                  color: widget.isDone
+                      ? AppColors.checkedTaskColor
+                      : Colors.grey,
                 ),
               ),
-              Text(widget.title, style: TextStyle(color: AppColors.fontColor, fontSize: 16)),
+              Text(
+                widget.title,
+                style: TextStyle(color: AppColors.fontColor, fontSize: 16),
+              ),
             ],
           ),
           Padding(
@@ -54,13 +67,16 @@ class _TaskCardState extends State<TaskCard> {
             child: Column(
               children: [
                 Text(
-                  "${widget.deadline.day}/${widget.deadline.month}/${widget.deadline.year}",//deadline date
+                  "${widget.deadline.day}/${widget.deadline.month}/${widget.deadline.year}", //deadline date
                   style: TextStyle(color: AppColors.fontColor),
                 ),
-                Text(getPriorityName(widget.priority),style: TextStyle(color: AppColors.fontColor)), //priority
+                Text(
+                  getPriorityName(widget.priority),
+                  style: TextStyle(color: AppColors.fontColor),
+                ), //priority
               ],
             ),
-          )
+          ),
         ],
       ),
     );

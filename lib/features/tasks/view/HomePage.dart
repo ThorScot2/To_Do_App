@@ -7,18 +7,16 @@ import 'Customized_Widgets/BottomSheet_AddNewToDo.dart';
 import 'Customized_Widgets/Task_Card.dart';
 
 class Homepage extends StatefulWidget {
-
   const Homepage({super.key});
-
 
   @override
   State<Homepage> createState() => _HomePageState();
-
 }
 
-class _HomePageState extends State<Homepage>{
+class _HomePageState extends State<Homepage> {
   bool sortDescending = true; // true = High to Low ---- false = Low to High
   bool hideCompleted = false;
+  TextEditingController controller = TextEditingController();
 
 
   @override
@@ -61,21 +59,21 @@ class _HomePageState extends State<Homepage>{
             color: AppColors.toDoCardColor,
             itemBuilder: (context) => [
               PopupMenuItem(
-                  child: Text(
-                    "Edit",
-                    style: TextStyle(color: AppColors.fontColor),
-                  )
+                child: Text(
+                  "Edit",
+                  style: TextStyle(color: AppColors.fontColor),
+                ),
               ),
               PopupMenuItem(
-                onTap: (){
+                onTap: () {
                   setState(() {
                     hideCompleted = !hideCompleted;
                   });
                 },
-                  child: Text(
-                    "Hide completed",
-                    style: TextStyle(color: AppColors.fontColor),
-                  )
+                child: Text(
+                  "Hide completed",
+                  style: TextStyle(color: AppColors.fontColor),
+                ),
               ),
             ],
           ),
@@ -87,6 +85,29 @@ class _HomePageState extends State<Homepage>{
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              TextField(
+                cursorColor: Colors.white,
+                controller: controller,
+                onChanged: (val) {},
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      controller.text="";
+                    },
+                    icon: Icon(Icons.close, color: Colors.white),
+                  ),
+                  hintText: "Search your to-dos",
+                  hintStyle: TextStyle(color: Colors.grey),
+                  filled: true,
+                  fillColor: AppColors.toDoCardColor,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+
               SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,14 +118,14 @@ class _HomePageState extends State<Homepage>{
                       Text(
                         "To-dos",
                         style: TextStyle(
-                            color: AppColors.fontColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 36),
+                          color: AppColors.fontColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 36,
+                        ),
                       ),
                       SizedBox(height: 5),
 
                       //tasks count
-
                       Consumer<TaskProvider>(
                         builder: (context, taskProvider, child) {
                           return Text(
@@ -117,22 +138,25 @@ class _HomePageState extends State<Homepage>{
                   ),
                   Row(
                     children: [
-                      Text("Sort",style: TextStyle(color: Colors.white,fontSize: 20),),
+                      Text(
+                        "Sort",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
                       IconButton(
-                          onPressed: (){
-                            //tasks sorting
-                            setState(() {
-                              sortDescending = !sortDescending;
-                            });
-                          },
-                          icon: Icon(
-                            Icons.sort_by_alpha,
-                            color: Colors.white,
-                            size: 40,
-                          )
+                        onPressed: () {
+                          //tasks sorting
+                          setState(() {
+                            sortDescending = !sortDescending;
+                          });
+                        },
+                        icon: Icon(
+                          Icons.sort_by_alpha,
+                          color: Colors.white,
+                          size: 40,
+                        ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
               SizedBox(height: 10),
@@ -140,21 +164,25 @@ class _HomePageState extends State<Homepage>{
               // unfinished
               Consumer<TaskProvider>(
                 builder: (context, taskProvider, child) {
-                  final pendingTasks = taskProvider.tasks.where((t) => !t.isDone).toList()
-                    ..sort((a, b) => sortDescending
-                        ? b.priority.compareTo(a.priority) // High to Low
-                        : a.priority.compareTo(b.priority) // Low to High
-                    );
+                  final pendingTasks =
+                      taskProvider.tasks.where((t) => !t.isDone).toList()..sort(
+                        (a, b) => sortDescending
+                            ? b.priority.compareTo(a.priority) // High to Low
+                            : a.priority.compareTo(b.priority), // Low to High
+                      );
 
-                  if (pendingTasks.isEmpty) {//check if empty
+                  if (pendingTasks.isEmpty) {
+                    //check if empty
                     return Center(
-                        child: Text(
-                          "No pending tasks",
-                          style: TextStyle(color: Colors.grey),
-                        ));
+                      child: Text(
+                        "No pending tasks",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    );
                   }
 
-                  return ListView.builder(//get data and show
+                  return ListView.builder(
+                    //get data and show
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: pendingTasks.length,
@@ -166,8 +194,10 @@ class _HomePageState extends State<Homepage>{
                         deadline: task.deadline,
                         isDone: task.isDone,
                         onToggleDone: () {
-                          Provider.of<TaskProvider>(context, listen: false)
-                              .toggleTaskDone(task);
+                          Provider.of<TaskProvider>(
+                            context,
+                            listen: false,
+                          ).toggleTaskDone(task);
                         },
                       );
                     },
@@ -178,16 +208,21 @@ class _HomePageState extends State<Homepage>{
               //finished
               Consumer<TaskProvider>(
                 builder: (context, taskProvider, child) {
-                  final completedTasks = taskProvider.tasks.where((t) => t.isDone && !hideCompleted).toList()
-                    ..sort((a, b) => sortDescending
-                        ? b.priority.compareTo(a.priority) // High to Low
-                        : a.priority.compareTo(b.priority) // Low to High
-                    );
+                  final completedTasks =
+                      taskProvider.tasks
+                          .where((t) => t.isDone && !hideCompleted)
+                          .toList()
+                        ..sort(
+                          (a, b) => sortDescending
+                              ? b.priority.compareTo(a.priority) // High to Low
+                              : a.priority.compareTo(b.priority), // Low to High
+                        );
 
+                  if (completedTasks.isEmpty)
+                    return SizedBox(); //check if empty
 
-                  if (completedTasks.isEmpty) return SizedBox();//check if empty
-
-                  return Padding(//get data and show
+                  return Padding(
+                    //get data and show
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Column(
                       spacing: 5,
@@ -209,7 +244,10 @@ class _HomePageState extends State<Homepage>{
                               deadline: task.deadline,
                               isDone: task.isDone,
                               onToggleDone: () {
-                                Provider.of<TaskProvider>(context, listen: false).toggleTaskDone(task);
+                                Provider.of<TaskProvider>(
+                                  context,
+                                  listen: false,
+                                ).toggleTaskDone(task);
                               },
                             );
                           },

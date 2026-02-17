@@ -18,6 +18,4 @@ class AppColors {
   static const Color toDoCardColor = Color(0xFF2f2f2f);
 
   static const Color bottomSheetBacgroundColor = Color(0xFF1f1f1f);
-
-
 }
