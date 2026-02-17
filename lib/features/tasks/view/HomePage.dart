@@ -5,6 +5,7 @@ import 'package:to_do_app/Settings/App_Colors.dart';
 import '../viewmodel/prov.dart';
 import 'Customized_Widgets/Floating_Action_BTN.dart';
 import 'Customized_Widgets/PopupMenuItem_Customized.dart';
+import 'Customized_Widgets/SearchBar_Customized.dart';
 import 'Customized_Widgets/Task_Card.dart';
 
 class Homepage extends StatefulWidget {
@@ -16,7 +17,6 @@ class Homepage extends StatefulWidget {
 
 class _HomePageState extends State<Homepage> {
   bool sortDescending = true; // true = High to Low ---- false = Low to High
-  TextEditingController controller = TextEditingController();
 
   Consumer<TaskProvider> retriveFinishedTasks() {
     return Consumer<TaskProvider>(
@@ -162,37 +162,7 @@ class _HomePageState extends State<Homepage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextField(
-                cursorColor: Colors.white,
-                controller: controller,
-                onChanged: (val) {
-                  Provider.of<TaskProvider>(
-                    context,
-                    listen: false,
-                  ).setSearchQuery(val);
-                },
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      controller.clear();
-                      Provider.of<TaskProvider>(
-                        context,
-                        listen: false,
-                      ).setSearchQuery("");
-                    },
-                    icon: Icon(Icons.close, color: Colors.white),
-                  ),
-                  hintText: "Search your to-dos",
-                  hintStyle: TextStyle(color: Colors.grey),
-                  filled: true,
-                  fillColor: AppColors.toDoCardColor,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
+              SearchbarCustomized(),
 
               SizedBox(height: 20),
               Row(
