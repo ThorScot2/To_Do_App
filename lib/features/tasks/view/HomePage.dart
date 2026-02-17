@@ -4,6 +4,7 @@ import 'package:to_do_app/Settings/App_Colors.dart';
 
 import '../viewmodel/prov.dart';
 import 'Customized_Widgets/Floating_Action_BTN.dart';
+import 'Customized_Widgets/PopupMenuItem_Customized.dart';
 import 'Customized_Widgets/Task_Card.dart';
 
 class Homepage extends StatefulWidget {
@@ -152,29 +153,7 @@ class _HomePageState extends State<Homepage> {
         scrolledUnderElevation: 0,
         backgroundColor: AppColors.appBarColor,
         actions: [
-          PopupMenuButton(
-            menuPadding: EdgeInsets.all(15),
-            style: ButtonStyle(alignment: Alignment.centerLeft),
-            iconColor: Colors.white,
-            color: AppColors.toDoCardColor,
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                child: Text(
-                  "Edit",
-                  style: TextStyle(color: AppColors.fontColor),
-                ),
-              ),
-              PopupMenuItem(
-                onTap: () {
-                  context.read<TaskProvider>().toggleHideCompleted();
-                },
-                child: Text(
-                  "Hide completed",
-                  style: TextStyle(color: AppColors.fontColor),
-                ),
-              ),
-            ],
-          ),
+          PopupmenuitemCustomized(),
         ],
       ),
       body: Padding(
