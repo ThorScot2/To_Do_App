@@ -18,21 +18,18 @@ class _HomePageState extends State<Homepage> {
   bool hideCompleted = false;
   TextEditingController controller = TextEditingController();
 
-  Consumer<TaskProvider> retriveFinishedTasks(){
+  Consumer<TaskProvider> retriveFinishedTasks() {
     return Consumer<TaskProvider>(
       builder: (context, taskProvider, child) {
         final completedTasks =
-        taskProvider.tasks
-            .where((t) => t.isDone && !hideCompleted)
-            .toList()
-          ..sort(
+            taskProvider.tasks.where((t) => t.isDone && !hideCompleted).toList()
+              ..sort(
                 (a, b) => sortDescending
-                ? b.priority.compareTo(a.priority) // High to Low
-                : a.priority.compareTo(b.priority), // Low to High
-          );
+                    ? b.priority.compareTo(a.priority) // High to Low
+                    : a.priority.compareTo(b.priority), // Low to High
+              );
 
-        if (completedTasks.isEmpty)
-          return SizedBox(); //check if empty
+        if (completedTasks.isEmpty) return SizedBox(); //check if empty
 
         return Padding(
           //get data and show
@@ -72,15 +69,15 @@ class _HomePageState extends State<Homepage> {
     );
   }
 
-  Consumer<TaskProvider> retriveUnFinishedTasks(){
+  Consumer<TaskProvider> retriveUnFinishedTasks() {
     return Consumer<TaskProvider>(
       builder: (context, taskProvider, child) {
-        final pendingTasks =
-        taskProvider.tasks.where((t) => !t.isDone).toList()..sort(
-              (a, b) => sortDescending
-              ? b.priority.compareTo(a.priority) // High to Low
-              : a.priority.compareTo(b.priority), // Low to High
-        );
+        final pendingTasks = taskProvider.tasks.where((t) => !t.isDone).toList()
+          ..sort(
+            (a, b) => sortDescending
+                ? b.priority.compareTo(a.priority) // High to Low
+                : a.priority.compareTo(b.priority), // Low to High
+          );
 
         if (pendingTasks.isEmpty) {
           //check if empty
@@ -110,13 +107,52 @@ class _HomePageState extends State<Homepage> {
                   listen: false,
                 ).toggleTaskDone(task);
               },
+              onDelete: () {
+                showDialog(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    backgroundColor: AppColors.toDoCardColor,
+                    title: Text(
+                      "Delete task?",
+                      style: TextStyle(color: AppColors.fontColor),
+                    ),
+                    content: Text(
+                      "Are you sure you want to delete this task?",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          "Cancel",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Provider.of<TaskProvider>(
+                            context,
+                            listen: false,
+                          ).deleteTask(task);
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          "Delete",
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
             );
           },
         );
       },
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -188,14 +224,20 @@ class _HomePageState extends State<Homepage> {
                 cursorColor: Colors.white,
                 controller: controller,
                 onChanged: (val) {
-                  Provider.of<TaskProvider>(context, listen: false).setSearchQuery(val);
+                  Provider.of<TaskProvider>(
+                    context,
+                    listen: false,
+                  ).setSearchQuery(val);
                 },
                 style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
                     onPressed: () {
                       controller.clear();
-                      Provider.of<TaskProvider>(context, listen: false).setSearchQuery("");
+                      Provider.of<TaskProvider>(
+                        context,
+                        listen: false,
+                      ).setSearchQuery("");
                     },
                     icon: Icon(Icons.close, color: Colors.white),
                   ),

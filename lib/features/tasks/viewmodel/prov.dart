@@ -170,6 +170,12 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteTask(Task task) {
+    _tasks.remove(task);
+    notifyListeners();
+  }
+
+
   void toggleTaskDone(Task task) {
     task.isDone = !task.isDone;
     notifyListeners();

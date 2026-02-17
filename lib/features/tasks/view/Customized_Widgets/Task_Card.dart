@@ -7,6 +7,7 @@ class TaskCard extends StatefulWidget {
   final DateTime deadline;
   final bool isDone;
   final VoidCallback? onToggleDone;
+  final VoidCallback? onDelete;
 
   const TaskCard({
     super.key,
@@ -15,6 +16,7 @@ class TaskCard extends StatefulWidget {
     required this.priority,
     required this.isDone,
     this.onToggleDone,
+    this.onDelete,
   });
 
   @override
@@ -38,46 +40,49 @@ class _TaskCardState extends State<TaskCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      color: AppColors.toDoCardColor,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              IconButton(
-                //done button
-                onPressed: widget.onToggleDone,
-                icon: Icon(
-                  widget.isDone ? Icons.check_circle : Icons.circle_outlined,
-                  color: widget.isDone
-                      ? AppColors.checkedTaskColor
-                      : Colors.grey,
-                ),
-              ),
-              Text(
-                widget.title,
-                style: TextStyle(color: AppColors.fontColor, fontSize: 16),
-              ),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.only(right: 15),
-            child: Column(
+    return GestureDetector(
+      onLongPress: widget.onDelete,
+      child: Card(
+        elevation: 5,
+        color: AppColors.toDoCardColor,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
               children: [
-                Text(
-                  "${widget.deadline.day}/${widget.deadline.month}/${widget.deadline.year}", //deadline date
-                  style: TextStyle(color: AppColors.fontColor),
+                IconButton(
+                  //done button
+                  onPressed: widget.onToggleDone,
+                  icon: Icon(
+                    widget.isDone ? Icons.check_circle : Icons.circle_outlined,
+                    color: widget.isDone
+                        ? AppColors.checkedTaskColor
+                        : Colors.grey,
+                  ),
                 ),
                 Text(
-                  getPriorityName(widget.priority),
-                  style: TextStyle(color: AppColors.fontColor),
-                ), //priority
+                  widget.title,
+                  style: TextStyle(color: AppColors.fontColor, fontSize: 16),
+                ),
               ],
             ),
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.only(right: 15),
+              child: Column(
+                children: [
+                  Text(
+                    "${widget.deadline.day}/${widget.deadline.month}/${widget.deadline.year}", //deadline date
+                    style: TextStyle(color: AppColors.fontColor),
+                  ),
+                  Text(
+                    getPriorityName(widget.priority),
+                    style: TextStyle(color: AppColors.fontColor),
+                  ), //priority
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
