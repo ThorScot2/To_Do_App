@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'Settings/App_Colors.dart';
+import 'features/tasks/model/task_model.dart';
 import 'features/tasks/view/HomePage.dart';
 import 'features/tasks/viewmodel/prov.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final appDocDir = await getApplicationDocumentsDirectory();
+  Hive.init(appDocDir.path);
+
+  // سجل ال Adapter بتاع Task
+  Hive.registerAdapter(TaskAdapter());
+
+  // افتح البوكس
+  await Hive.openBox<Task>('tasks');
+
   runApp(
-    MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => TaskProvider())],
+    ChangeNotifierProvider(
+      create: (_) => TaskProvider(),
       child: const MyApp(),
     ),
   );

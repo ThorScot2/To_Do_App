@@ -1,170 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import '../model/task_model.dart';
 
 class TaskProvider extends ChangeNotifier {
-  final List<Task> _tasks = [
-    Task(
-      title: "Buy groceries",
-      priority: 2,
-      deadline: DateTime.now().add(Duration(hours: 3)),
-      isDone: false,
-    ),
-    Task(
-      title: "Finish Flutter project",
-      priority: 3,
-      deadline: DateTime.now().add(Duration(days: 1)),
-      isDone: false,
-    ),
-    Task(
-      title: "Call mom",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(hours: 5)),
-      isDone: true,
-    ),
-    Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),
-    Task(
-      title: "Workout",
-      priority: 2,
-      deadline: DateTime.now().add(Duration(hours: 1)),
-      isDone: true,
-    ),
-    Task(
-      title: "Workout",
-      priority: 2,
-      deadline: DateTime.now().add(Duration(hours: 1)),
-      isDone: true,
-    ),
-    Task(
-      title: "Workout",
-      priority: 2,
-      deadline: DateTime.now().add(Duration(hours: 1)),
-      isDone: true,
-    ),
-    Task(
-      title: "Workout",
-      priority: 2,
-      deadline: DateTime.now().add(Duration(hours: 1)),
-      isDone: true,
-    ),
-    Task(
-      title: "Workout",
-      priority: 2,
-      deadline: DateTime.now().add(Duration(hours: 1)),
-      isDone: true,
-    ),
-    Task(
-      title: "Workout",
-      priority: 2,
-      deadline: DateTime.now().add(Duration(hours: 1)),
-      isDone: true,
-    ),
-    Task(
-      title: "Workout",
-      priority: 2,
-      deadline: DateTime.now().add(Duration(hours: 1)),
-      isDone: true,
-    ),
-    Task(
-      title: "Workout",
-      priority: 2,
-      deadline: DateTime.now().add(Duration(hours: 1)),
-      isDone: true,
-    ),
-    Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),
-    Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),
-    Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),
-    Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),
-    Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),
-    Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),
-    Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),
-    Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),
-    Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),
-    Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),
-    Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),
-    Task(
-      title: "Read book",
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-      isDone: false,
-    ),
-  ]; //temp data for designing
+  late Box<Task> _taskBox;
+
+  TaskProvider() {
+    _init();
+  }
+
+  Future<void> _init() async {
+    _taskBox = Hive.box<Task>('tasks'); // Box مفتوح جاهز
+    notifyListeners(); // عشان ال UI يعرف
+  }
 
   String _searchQuery = "";
   bool _sortDescending = true;
   bool _hideCompleted = false;
 
+  Future<void> loadTasks() async {
+    _taskBox = Hive.box<Task>('tasksBox');
+    notifyListeners();
+  }
+
   void addTask(Task task) {
-    _tasks.add(task);
+    _taskBox.add(task);
     notifyListeners();
   }
 
   void toggleTaskDone(Task task) {
     task.isDone = !task.isDone;
+    task.save();
     notifyListeners();
   }
 
   void deleteTask(Task task) {
-    _tasks.remove(task);
+    _taskBox.delete(task);
     notifyListeners();
   }
 
@@ -185,7 +56,7 @@ class TaskProvider extends ChangeNotifier {
 
   // PRIVATE LISTS FOR UI OR ACTIONS ON PUBLIC LISTS
   List<Task> get _filteredTasks {
-    return _tasks.where((task) {
+      return _taskBox.values.where((task) {
       final matchesSearch = task.title.toLowerCase().contains(
         _searchQuery.toLowerCase(),
       );

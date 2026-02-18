@@ -4,7 +4,7 @@ import 'package:to_do_app/Settings/App_Colors.dart';
 class TaskCard extends StatefulWidget {
   final String title;
   final int priority;
-  final DateTime deadline;
+  final dynamic deadline;
   final bool isDone;
   final VoidCallback? onToggleDone;
   final VoidCallback? onDelete;
