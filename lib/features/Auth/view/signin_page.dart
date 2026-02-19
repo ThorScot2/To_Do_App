@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import '../../../Settings/App_Colors.dart';
 import 'Cutomized_Widgets/login_page_textFields.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SigninPage extends StatefulWidget {
+  const SigninPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SigninPage> createState() => _SigninPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SigninPageState extends State<SigninPage> {
   GlobalKey<FormState> frmKey = GlobalKey();
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passcontroller = TextEditingController();
@@ -81,7 +81,6 @@ class _LoginPageState extends State<LoginPage> {
                             onPressed: () {
                               if(frmKey.currentState!.validate()){
                                 // TODO: Login logic
-
                               }
                             },
                             style: ElevatedButton.styleFrom(
@@ -91,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             child: const Text(
-                              "Login",
+                              "Sign In",
                               style: TextStyle(
                                 fontSize: 18,
                                 color: Colors.white,
@@ -108,11 +107,11 @@ class _LoginPageState extends State<LoginPage> {
                   // Forgot Password
                   TextButton(
                     onPressed: () {
-                      // TODO: Navigate to Password Change
-
+                      // TODO: Navigate to Login
+                      Navigator.pushNamed(context, "login");
                     },
                     child: const Text(
-                      "Forgot Password?",
+                      "Already have an account?",
                       style: TextStyle(color: Colors.grey),
                     ),
                   ),

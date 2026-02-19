@@ -56,7 +56,9 @@ class _WelcomeState extends State<Welcome>{
               children: [
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, "register");
+                    },
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(color: Colors.white),
                       padding: EdgeInsets.symmetric(vertical: 16),
