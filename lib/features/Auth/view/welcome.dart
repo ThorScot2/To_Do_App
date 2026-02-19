@@ -70,7 +70,9 @@ class _WelcomeState extends State<Welcome>{
                 SizedBox(width: 20),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, "login");
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.floatingBtnColor,
                       padding: EdgeInsets.symmetric(vertical: 16),

@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do_app/features/Auth/view/login_page.dart';
 import 'Settings/App_Colors.dart';
 import 'features/Auth/view/welcome.dart';
 import 'features/tasks/model/task_model.dart';
@@ -44,8 +45,7 @@ class _MyAppState extends State<MyApp> {
       home: Welcome(),
       routes: {
         "home": (context) => Homepage(),
-
-        // "accounts" : (context) => Accountspage(),
+        "login" : (context) => LoginPage(),
       },
     );
   }
