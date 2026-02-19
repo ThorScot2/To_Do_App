@@ -20,7 +20,7 @@ class _WelcomeState extends State<Welcome>{
       body: Stack(
         children: [
           SizedBox.expand( //image
-            child: Image.asset(fit: BoxFit.fill,"assets/images/study2.jpg"),
+            child: Image.asset(fit: BoxFit.fill,"assets/images/study.jpg"),
           ),
 
           Container( // gradient
