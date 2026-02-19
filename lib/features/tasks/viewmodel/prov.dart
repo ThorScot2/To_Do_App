@@ -11,7 +11,7 @@ class TaskProvider extends ChangeNotifier {
 
   Future<void> _init() async {
     _taskBox = Hive.box<Task>('tasks'); // Box مفتوح جاهز
-    notifyListeners(); // عشان ال UI يعرف
+    notifyListeners();
   }
 
   String _searchQuery = "";
