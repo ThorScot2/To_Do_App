@@ -27,4 +27,29 @@ class AuthService {
       throw Exception("Login Failed");
     }
   }
+
+  Future<AuthResponseModel> register(String name ,String email, String password) async {
+
+    final String baseUrl = "https://todo-backend-oob0.onrender.com";
+    final loginUrl = Uri.parse("$baseUrl/api/auth/register");
+
+    final response = await http.post(
+      loginUrl,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonEncode({
+        "name": name,
+        "email": email,
+        "password": password,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return AuthResponseModel.fromJson(data);
+    } else {
+      throw Exception("Register Failed");
+    }
+  }
 }

@@ -87,9 +87,14 @@ class _LoginPageState extends State<LoginPage> {
                                     width: double.infinity,
                                     height: 50,
                                     child: ElevatedButton(
-                                      onPressed: () {
+                                      onPressed: () async{
                                         if(frmKey.currentState!.validate()){
-                                          prov.login(emailcontroller.text, passcontroller.text);
+                                          await prov.login(emailcontroller.text, passcontroller.text);
+                                          Navigator.pushNamedAndRemoveUntil(
+                                            context,
+                                            "home",
+                                                (Route<dynamic> route) => false,
+                                          );
                                         }
                                       },
                                       style: ElevatedButton.styleFrom(
@@ -111,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 10),
                                       child: Text(
-                                        prov.error!,
+                                        "Login Failed",
                                         style: TextStyle(color: Colors.red),
                                       ),
                                     ),

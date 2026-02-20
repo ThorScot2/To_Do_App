@@ -1,8 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 import '../../../Settings/App_Colors.dart';
+import '../viewmodel/authProvider.dart';
 import 'Cutomized_Widgets/login_page_textFields.dart';
 
 class SigninPage extends StatefulWidget {
@@ -14,6 +17,7 @@ class SigninPage extends StatefulWidget {
 
 class _SigninPageState extends State<SigninPage> {
   GlobalKey<FormState> frmKey = GlobalKey();
+  TextEditingController namecontroller = TextEditingController();
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passcontroller = TextEditingController();
 
@@ -56,6 +60,28 @@ class _SigninPageState extends State<SigninPage> {
                     key: frmKey,
                     child: Column(
                       children: [
+
+                        //name
+                        TextField(
+                          controller: namecontroller,
+                          cursorColor: Colors.white,
+                          style: const TextStyle(color: Colors.white),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+                          ],
+                          decoration: InputDecoration(
+                            hintText: "Name",
+                            hintStyle: const TextStyle(color: Colors.grey),
+                            filled: true,
+                            fillColor: AppColors.toDoCardColor,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                        ),
+
+
                         // Email
                         LoginPageTextfields(
                           hintText: "Email",
@@ -73,30 +99,54 @@ class _SigninPageState extends State<SigninPage> {
 
                         const SizedBox(height: 25),
 
-                        // Login Button
-                        SizedBox(
-                          width: double.infinity,
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if(frmKey.currentState!.validate()){
-                                // TODO: Login logic
+                        // SignIn Button
+                        Consumer<AuthProvider>(
+                            builder: (context, prov, child) {
+                              if(prov.isLoading){
+                                return CircularProgressIndicator(color: AppColors.floatingBtnColor,);
                               }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.floatingBtnColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                            ),
-                            child: const Text(
-                              "Sign In",
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
+                              return Column(
+                                children: [
+                                  SizedBox(
+                                    width: double.infinity,
+                                    height: 50,
+                                    child: ElevatedButton(
+                                      onPressed: () async{
+                                        if(frmKey.currentState!.validate()){
+                                          await prov.register(namecontroller.text ,emailcontroller.text, passcontroller.text);
+                                          Navigator.pushNamedAndRemoveUntil(
+                                            context,
+                                            "welcome",
+                                                (Route<dynamic> route) => false,
+                                          );
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: AppColors.floatingBtnColor,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(15),
+                                        ),
+                                      ),
+                                      child: const Text(
+                                        "SignIn",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  if(prov.error != null)
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 10),
+                                      child: Text(
+                                        "SignIn Failed",
+                                        style: TextStyle(color: Colors.red),
+                                      ),
+                                    ),
+                                ],
+                              );
+                            }
                         ),
                       ],
                     ),
