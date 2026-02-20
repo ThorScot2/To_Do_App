@@ -77,9 +77,9 @@ class _LoginPageState extends State<LoginPage> {
 
                         // Login Button
                         Consumer<AuthProvider>(
-                            builder: (context, vm, child) {
-                              if(vm.isLoading){
-                                return CircularProgressIndicator();
+                            builder: (context, prov, child) {
+                              if(prov.isLoading){
+                                return CircularProgressIndicator(color: AppColors.floatingBtnColor,);
                               }
                               return Column(
                                 children: [
@@ -89,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                                     child: ElevatedButton(
                                       onPressed: () {
                                         if(frmKey.currentState!.validate()){
-                                          vm.login(emailcontroller.text, passcontroller.text);
+                                          prov.login(emailcontroller.text, passcontroller.text);
                                         }
                                       },
                                       style: ElevatedButton.styleFrom(
@@ -107,11 +107,11 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     ),
                                   ),
-                                  if(vm.error != null)
+                                  if(prov.error != null)
                                     Padding(
                                       padding: const EdgeInsets.only(top: 10),
                                       child: Text(
-                                        vm.error!,
+                                        prov.error!,
                                         style: TextStyle(color: Colors.red),
                                       ),
                                     ),
