@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../Settings/network_checker.dart';
 import '../model/userModel.dart';
 import '../service/auth_service.dart';
 
@@ -15,6 +16,12 @@ class AuthProvider extends ChangeNotifier {
       isLoading = true;
       error = null;
       notifyListeners();
+
+      final hasConnection = await NetworkChecker.hasInternet();
+
+      if (!hasConnection) {
+        throw Exception("No Internet Connection");
+      }
 
       final response = await _authService.login(email, password);
 
@@ -34,6 +41,12 @@ class AuthProvider extends ChangeNotifier {
       isLoading = true;
       error = null;
       notifyListeners();
+
+      final hasConnection = await NetworkChecker.hasInternet();
+
+      if (!hasConnection) {
+        throw Exception("No Internet Connection");
+      }
 
       final response = await _authService.register(name, email, password);
 
