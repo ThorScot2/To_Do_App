@@ -5,43 +5,41 @@ import 'package:flutter/material.dart';
 import '../../../Settings/App_Colors.dart';
 import 'Cutomized_Widgets/info_for_welcome.dart';
 
-class Welcome extends StatefulWidget{
+class Welcome extends StatefulWidget {
   const Welcome({super.key});
-  
+
   @override
   State<Welcome> createState() => _WelcomeState();
 }
 
-class _WelcomeState extends State<Welcome>{
+class _WelcomeState extends State<Welcome> {
   int currentPage = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          SizedBox.expand( //image
-            child: Image.asset(fit: BoxFit.fill,"assets/images/study.jpg"),
+          SizedBox.expand(
+            //image
+            child: Image.asset(fit: BoxFit.fill, "assets/images/study.jpg"),
           ),
 
-          Container( // gradient
+          Container(
+            // gradient
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
-                colors: [
-                  Colors.black.withOpacity(1),
-                  Colors.transparent,
-                ],
+                colors: [Colors.black.withOpacity(1), Colors.transparent],
               ),
             ),
           ),
 
-
-          BackdropFilter( // blur
+          BackdropFilter(
+            // blur
             filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-            child: Container(
-              color: Colors.black.withOpacity(0),
-            ),
+            child: Container(color: Colors.black.withOpacity(0)),
           ),
 
           // Content
@@ -79,7 +77,10 @@ class _WelcomeState extends State<Welcome>{
                       backgroundColor: AppColors.floatingBtnColor,
                       padding: EdgeInsets.symmetric(vertical: 16),
                     ),
-                    child: Text('Log In',style: TextStyle(color: Colors.white)),
+                    child: Text(
+                      'Log In',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ],

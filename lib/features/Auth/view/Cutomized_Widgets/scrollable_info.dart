@@ -18,11 +18,7 @@ class ScrollableInfo extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
-          icon,
-          size: 60,
-          color: AppColors.floatingBtnColor,
-        ),
+        Icon(icon, size: 60, color: AppColors.floatingBtnColor),
         SizedBox(height: 20),
         Text(
           title,

@@ -19,7 +19,6 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passcontroller = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,52 +76,58 @@ class _LoginPageState extends State<LoginPage> {
 
                         // Login Button
                         Consumer<AuthProvider>(
-                            builder: (context, prov, child) {
-                              if(prov.isLoading){
-                                return CircularProgressIndicator(color: AppColors.floatingBtnColor,);
-                              }
-                              return Column(
-                                children: [
-                                  SizedBox(
-                                    width: double.infinity,
-                                    height: 50,
-                                    child: ElevatedButton(
-                                      onPressed: () async{
-                                        if(frmKey.currentState!.validate()){
-                                          await prov.login(emailcontroller.text, passcontroller.text);
-                                          Navigator.pushNamedAndRemoveUntil(
-                                            context,
-                                            "home",
-                                                (Route<dynamic> route) => false,
-                                          );
-                                        }
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: AppColors.floatingBtnColor,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(15),
-                                        ),
+                          builder: (context, prov, child) {
+                            if (prov.isLoading) {
+                              return CircularProgressIndicator(
+                                color: AppColors.floatingBtnColor,
+                              );
+                            }
+                            return Column(
+                              children: [
+                                SizedBox(
+                                  width: double.infinity,
+                                  height: 50,
+                                  child: ElevatedButton(
+                                    onPressed: () async {
+                                      if (frmKey.currentState!.validate()) {
+                                        await prov.login(
+                                          emailcontroller.text,
+                                          passcontroller.text,
+                                        );
+                                        Navigator.pushNamedAndRemoveUntil(
+                                          context,
+                                          "home",
+                                          (Route<dynamic> route) => false,
+                                        );
+                                      }
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor:
+                                          AppColors.floatingBtnColor,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15),
                                       ),
-                                      child: const Text(
-                                        "Login",
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.white,
-                                        ),
+                                    ),
+                                    child: const Text(
+                                      "Login",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ),
-                                  if(prov.error != null)
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: Text(
-                                        "Login Failed",
-                                        style: TextStyle(color: Colors.red),
-                                      ),
+                                ),
+                                if (prov.error != null)
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Text(
+                                      "Login Failed",
+                                      style: TextStyle(color: Colors.red),
                                     ),
-                                ],
-                              );
-                            }
+                                  ),
+                              ],
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -134,7 +139,6 @@ class _LoginPageState extends State<LoginPage> {
                   TextButton(
                     onPressed: () {
                       // TODO: Navigate to Password Change
-
                     },
                     child: const Text(
                       "Forgot Password?",

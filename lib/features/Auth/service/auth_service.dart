@@ -3,21 +3,14 @@ import 'package:http/http.dart' as http;
 import '../model/auth_response_model.dart';
 
 class AuthService {
-
   Future<AuthResponseModel> login(String email, String password) async {
-
     final String baseUrl = "https://todo-backend-oob0.onrender.com";
     final loginUrl = Uri.parse("$baseUrl/api/auth/login");
 
     final response = await http.post(
       loginUrl,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: jsonEncode({
-        "email": email,
-        "password": password,
-      }),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({"email": email, "password": password}),
     );
 
     if (response.statusCode == 200) {
@@ -28,21 +21,18 @@ class AuthService {
     }
   }
 
-  Future<AuthResponseModel> register(String name ,String email, String password) async {
-
+  Future<AuthResponseModel> register(
+    String name,
+    String email,
+    String password,
+  ) async {
     final String baseUrl = "https://todo-backend-oob0.onrender.com";
     final loginUrl = Uri.parse("$baseUrl/api/auth/register");
 
     final response = await http.post(
       loginUrl,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: jsonEncode({
-        "name": name,
-        "email": email,
-        "password": password,
-      }),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({"name": name, "email": email, "password": password}),
     );
 
     if (response.statusCode == 200) {

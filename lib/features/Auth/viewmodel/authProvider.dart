@@ -27,7 +27,6 @@ class AuthProvider extends ChangeNotifier {
 
       user = response.user;
       token = response.token;
-
     } catch (e) {
       error = e.toString();
     } finally {
@@ -52,7 +51,6 @@ class AuthProvider extends ChangeNotifier {
 
       user = response.user;
       token = response.token;
-
     } catch (e) {
       error = e.toString();
     } finally {

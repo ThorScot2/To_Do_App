@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../../../../Settings/App_Colors.dart';
 
-class LoginPageTextfields extends StatelessWidget{
+class LoginPageTextfields extends StatelessWidget {
   final String hintText;
   final bool isPassword;
   final TextEditingController controller;
 
-
-  const LoginPageTextfields({super.key,required this.hintText,this.isPassword=false,required this.controller});
+  const LoginPageTextfields({
+    super.key,
+    required this.hintText,
+    this.isPassword = false,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +26,17 @@ class LoginPageTextfields extends StatelessWidget{
           return "This field is required";
         }
 
-        if (!isPassword) { // email validation
-          final emailRegex =
-          RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+        if (!isPassword) {
+          // email validation
+          final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 
           if (!emailRegex.hasMatch(value)) {
             return "Enter a valid email";
           }
         }
 
-        if (isPassword) { // pass validation
+        if (isPassword) {
+          // pass validation
           if (value.length < 6) {
             return "Password must be at least 6 characters";
           }
@@ -51,5 +56,4 @@ class LoginPageTextfields extends StatelessWidget{
       ),
     );
   }
-
 }

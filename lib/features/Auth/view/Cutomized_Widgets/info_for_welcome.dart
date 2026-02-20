@@ -17,7 +17,8 @@ class _InfoForWelcomeState extends State<InfoForWelcome> {
     {
       "icon": Icons.today,
       "title": "Organize Your Tasks",
-      "description": "Keep track of all your tasks in one place\nand stay productive every day!",
+      "description":
+          "Keep track of all your tasks in one place\nand stay productive every day!",
     },
     {
       "icon": Icons.alarm,
@@ -34,35 +35,32 @@ class _InfoForWelcomeState extends State<InfoForWelcome> {
   @override
   Widget build(BuildContext context) {
     return Column(
-        children: [
-          Expanded(
-            child: PageView.builder(
-              controller: _controller,
-              itemCount: pages.length,
-              onPageChanged: (index) {
-                setState(() {
-                  currentPage = index;
-                });
-              },
-              itemBuilder: (context, index) {
-                final page = pages[index];
+      children: [
+        Expanded(
+          child: PageView.builder(
+            controller: _controller,
+            itemCount: pages.length,
+            onPageChanged: (index) {
+              setState(() {
+                currentPage = index;
+              });
+            },
+            itemBuilder: (context, index) {
+              final page = pages[index];
 
-                return ScrollableInfo(
-                  icon: page["icon"],
-                  title: page["title"],
-                  description: page["description"],
-                );
-              },
-            ),
+              return ScrollableInfo(
+                icon: page["icon"],
+                title: page["title"],
+                description: page["description"],
+              );
+            },
           ),
+        ),
 
-          CustomizedDots(
-            currentIndex: currentPage,
-            totalDots: pages.length,
-          ),
+        CustomizedDots(currentIndex: currentPage, totalDots: pages.length),
 
-          const SizedBox(height: 150),
-        ],
+        const SizedBox(height: 150),
+      ],
     );
   }
 }
