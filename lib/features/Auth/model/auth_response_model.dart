@@ -1,4 +1,4 @@
-import 'package:to_do_app/features/Auth/model/userModel.dart';
+import 'package:to_do_app/features/Auth/model/user_model.dart';
 
 class AuthResponseModel {
   final UserModel user;

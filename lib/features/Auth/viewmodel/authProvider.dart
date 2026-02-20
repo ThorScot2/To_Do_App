@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../Settings/network_checker.dart';
-import '../model/userModel.dart';
+import '../model/user_model.dart';
 import '../service/auth_service.dart';
 
 class AuthProvider extends ChangeNotifier {

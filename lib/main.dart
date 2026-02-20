@@ -18,10 +18,8 @@ void main() async {
   final appDocDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocDir.path);
 
-  // سجل ال Adapter بتاع Task
   Hive.registerAdapter(TaskAdapter());
 
-  // افتح البوكس
   await Hive.openBox<Task>('tasks');
 
   runApp(
@@ -50,9 +48,9 @@ class _MyAppState extends State<MyApp> {
       home: Welcome(),
       routes: {
         "home": (context) => Homepage(),
-        "login" : (context) => LoginPage(),
-        "register" : (context) => SigninPage(),
-        "welcome" : (context) => Welcome(),
+        "login": (context) => LoginPage(),
+        "register": (context) => SigninPage(),
+        "welcome": (context) => Welcome(),
       },
     );
   }
