@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do_app/features/Auth/viewmodel/authProvider.dart';
 
 import '../../../Settings/App_Colors.dart';
 import 'Cutomized_Widgets/login_page_textFields.dart';
@@ -74,30 +76,48 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(height: 25),
 
                         // Login Button
-                        SizedBox(
-                          width: double.infinity,
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if(frmKey.currentState!.validate()){
-                                // TODO: Login logic
-
+                        Consumer<AuthProvider>(
+                            builder: (context, vm, child) {
+                              if(vm.isLoading){
+                                return CircularProgressIndicator();
                               }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.floatingBtnColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                            ),
-                            child: const Text(
-                              "Login",
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
+                              return Column(
+                                children: [
+                                  SizedBox(
+                                    width: double.infinity,
+                                    height: 50,
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        if(frmKey.currentState!.validate()){
+                                          vm.login(emailcontroller.text, passcontroller.text);
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: AppColors.floatingBtnColor,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(15),
+                                        ),
+                                      ),
+                                      child: const Text(
+                                        "Login",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  if(vm.error != null)
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 10),
+                                      child: Text(
+                                        vm.error!,
+                                        style: TextStyle(color: Colors.red),
+                                      ),
+                                    ),
+                                ],
+                              );
+                            }
                         ),
                       ],
                     ),

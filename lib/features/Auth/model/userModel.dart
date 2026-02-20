@@ -1,0 +1,25 @@
+class UserModel {
+  final String id;
+  final String name;
+  final String email;
+  final String createdAt;
+  final String updatedAt;
+
+  UserModel({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      id: json['_id'],
+      name: json['name'],
+      email: json['email'],
+      createdAt: json['createdAt'],
+      updatedAt: json['updatedAt'],
+    );
+  }
+}

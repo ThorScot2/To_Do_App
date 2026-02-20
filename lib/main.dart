@@ -7,6 +7,7 @@ import 'package:to_do_app/features/Auth/view/login_page.dart';
 import 'package:to_do_app/features/Auth/view/signin_page.dart';
 import 'Settings/App_Colors.dart';
 import 'features/Auth/view/welcome.dart';
+import 'features/Auth/viewmodel/authProvider.dart';
 import 'features/tasks/model/task_model.dart';
 import 'features/tasks/view/HomePage.dart';
 import 'features/tasks/viewmodel/prov.dart';
@@ -24,8 +25,11 @@ void main() async {
   await Hive.openBox<Task>('tasks');
 
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => TaskProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => TaskProvider()),
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+      ],
       child: const MyApp(),
     ),
   );
